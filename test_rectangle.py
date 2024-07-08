@@ -15,7 +15,7 @@ class TestRectangle:
     def test_floor(self):
         dim = 3
         rect = rectangle.generate_rectangle(dim, dim)
-        assert(rect[1,1] == 0)
+        assert(rect[1][1] == 0)
         
     def test_upper_wall(self):
         dim = 3
