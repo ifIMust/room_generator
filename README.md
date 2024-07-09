@@ -30,5 +30,5 @@ For instance, `http://localhost:5000/generate?h=3&w=4` yields `[[1,1,1,1],[1,0,0
 ```
 
 ## Further Work
-Generate different types of rooms with different shapes.
-Register this service with a registry service.
+- Generate different types of rooms with different shapes.
+- Register this service with a registry service.
