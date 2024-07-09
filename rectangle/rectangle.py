@@ -1,6 +1,6 @@
 # Wall tiles will fill the border. Floor tiles fill the remainder.
 # 0 is floor, 1 is wall.
-def generate_rectangle(width, height):
+def generate_rectangle(height, width):
     tiles = []
     for i in range(0, height):
         # Create a row

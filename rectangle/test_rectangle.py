@@ -33,6 +33,6 @@ class TestRectangle:
     def test_rectangle(self):
         width = 4
         height = 3
-        rect = rectangle.generate_rectangle(width, height)
+        rect = rectangle.generate_rectangle(height, width)
         expected = [[1, 1, 1, 1], [1, 0, 0, 1], [1, 1, 1, 1]]
         assert expected == rect
