@@ -1,4 +1,4 @@
-import rectangle
+import rectangle as rectangle
 
 class TestRectangle:
     def test_width(self):
@@ -29,3 +29,10 @@ class TestRectangle:
         rect = rectangle.generate_rectangle(dim, dim)
         for i in range(0, len(rect)):
             assert rect[i][0] == 1
+
+    def test_rectangle(self):
+        width = 4
+        height = 3
+        rect = rectangle.generate_rectangle(width, height)
+        expected = [[1, 1, 1, 1], [1, 0, 0, 1], [1, 1, 1, 1]]
+        assert expected == rect
