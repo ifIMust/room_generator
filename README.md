@@ -19,4 +19,4 @@ The output format is a (JSON) list of lists. Each nested list represents a colum
 
 `w` and `h` have a minimum size of 3 and default of 3.
 
-For instance, `http://localhost:5000/generate` yields `[[1,1,1],[1,0,1],[1,1,1]]`
+For instance, `http://localhost:5000/generate?w=4&h=3` yields `[[1,1,1,1],[1,0,0,1],[1,1,1,1]]`
