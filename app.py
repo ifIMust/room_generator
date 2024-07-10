@@ -16,10 +16,8 @@ def generate():
         abort(400)
         return
 
-    if height == width and height % 2 == 1 and height >= 5:
-        print("Circle time")
-        # Equal sizes, odd height; candidate for generating a circle
-        #if random.randint(0, 1) == 1:
+    # Technically h=5 works too but it comes out same as rectangle
+    if height == width and height % 2 == 1 and height >= 7:
         return circle.generate_circle(math.floor(height / 2))
     
     rect = rectangle.generate_rectangle(height, width)

@@ -15,7 +15,6 @@ def draw_times_8(data, r, x, y):
 
 
 def generate_circle(r):
-    print("generate_circle %d" % r)
     assert r > 1
     dim = r * 2 + 1
     data = np.zeros((dim, dim), dtype=np.uint8)
@@ -44,13 +43,8 @@ def generate_circle(r):
 
     # Close the final missing diagonal:
     if x > 1:
-        if x - y == 1:
-            draw_times_8(data, r, x - 1, y)
-        else:
-            draw_times_8(data, r, x, y + 1)
-            
-        
-    print("data: %s" %data.tolist())
+        draw_times_8(data, r, x, y + 1)
+
     return data.tolist()
 
 # count_ortho_neighbors was written with the intention of using it for filtering
