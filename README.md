@@ -4,7 +4,8 @@ room_generator is a service that generates small 2D "rooms" in json format.
 This is useful for e.g. procedural roguelike/dungeon games if the rooms are aggregated into a larger level.
 It is intended for use with [level_generator](https://github.com/ifIMust/level_generator).
 
-The default (only) implementation creates a rectangle of the specified size, with walls surrounding an empty floor.
+The main implementation creates a rectangle of the specified size, with walls surrounding an empty floor.
+If conditions are right, a circular room may be generated.
 
 room_generator uses Python and Flask, with a venv virtual environment.
 
@@ -31,5 +32,7 @@ For instance, `http://localhost:5000/generate?h=3&w=4` yields `[[1,1,1,1],[1,0,0
 ```
 
 ## Further Work
-- Generate different types of rooms with different shapes.
+- Permit client to request a room type.
+- Generate elliptical rooms that don't have to be circles.
+- Generate other, more interesting room shapes.
 - Register this service with a registry service.

@@ -16,6 +16,9 @@ def draw_times_8(data, r, x, y):
 
 def generate_circle(r):
     assert r > 1
+    if r == 2:
+        return five_by_five()
+    
     dim = r * 2 + 1
     data = np.zeros((dim, dim), dtype=np.uint8)
 
@@ -46,6 +49,15 @@ def generate_circle(r):
         draw_times_8(data, r, x, y + 1)
 
     return data.tolist()
+
+
+# Special case because the algorithm draw 5x5 as a rectangle.
+def five_by_five():
+    return [[0, 1, 1, 1, 0],
+            [1, 1, 0, 1, 1],
+            [1, 0, 0, 0, 1],
+            [1, 1, 0, 1, 1],
+            [0, 1, 1, 1, 0]]
 
 # count_ortho_neighbors was written with the intention of using it for filtering
 # generated circles to fill in missing cells. It is obsolete with the addition of

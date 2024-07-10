@@ -7,13 +7,12 @@ def test_gen_circle_r1_too_small():
         circle.generate_circle(1)
 
 
-# Same as a 5x5 rectangle... Could special-case this one.
 def test_gen_circle_r2():
-    expected = [[1, 1, 1, 1, 1],
+    expected = [[0, 1, 1, 1, 0],
+                [1, 1, 0, 1, 1],
                 [1, 0, 0, 0, 1],
-                [1, 0, 0, 0, 1],
-                [1, 0, 0, 0, 1],
-                [1, 1, 1, 1, 1]]
+                [1, 1, 0, 1, 1],
+                [0, 1, 1, 1, 0]]
     output = circle.generate_circle(2)
     assert expected == output
 
