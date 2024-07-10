@@ -2,6 +2,7 @@ import numpy as np
 
 # Circle rasterizing code adapted from "3D Game Engine Design", 2nd Ed. David H Eberly
 # Each loop iteration draws the same point in symmetry to 8 sections of the circle.
+# Extra points are drawn to ensure closed orthogonal walls.
 def draw_times_8(data, r, x, y):
     data[r + x][r + y] = 1
     data[r + x][r - y] = 1
@@ -24,7 +25,7 @@ def generate_circle(r):
     dec = 3 - 2*r
     just_decremented_y = False
 
-    while x <=y:
+    while x <= y:
         draw_times_8(data, r, x, y)
 
         # This tweak to this algorithm yields a "fatter" rasterize.
@@ -41,6 +42,14 @@ def generate_circle(r):
         dec += 4*x + 6
         x += 1
 
+    # Close the final missing diagonal:
+    if x > 1:
+        if x - y == 1:
+            draw_times_8(data, r, x - 1, y)
+        else:
+            draw_times_8(data, r, x, y + 1)
+            
+        
     print("data: %s" %data.tolist())
     return data.tolist()
 

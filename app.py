@@ -16,10 +16,11 @@ def generate():
         abort(400)
         return
 
-    if height == width and height % 2 == 1:
+    if height == width and height % 2 == 1 and height >= 5:
+        print("Circle time")
         # Equal sizes, odd height; candidate for generating a circle
-        if random.randint(0, 1) == 1:
-            return circle.generate_circle(math.floor(height / 2))
+        #if random.randint(0, 1) == 1:
+        return circle.generate_circle(math.floor(height / 2))
     
     rect = rectangle.generate_rectangle(height, width)
     return rect
