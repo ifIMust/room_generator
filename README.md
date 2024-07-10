@@ -2,13 +2,14 @@
 ## Description
 room_generator is a service that generates small 2D "rooms" in json format.
 This is useful for e.g. procedural roguelike/dungeon games if the rooms are aggregated into a larger level.
+It is intended for use with [level_generator](https://github.com/ifIMust/level_generator).
 
 The default (only) implementation creates a rectangle of the specified size, with walls surrounding an empty floor.
 
 room_generator uses Python and Flask, with a venv virtual environment.
 
 ## Example usage
-In a terminal, activate the venv environment:
+In the room_generator project directory, activate the venv environment:
 `. .venv/bin/activate`
 
 To run the service in debug mode on port 4949:
