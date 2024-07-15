@@ -51,7 +51,7 @@ def generate_circle(r):
     return data.tolist()
 
 
-# Special case because the algorithm draw 5x5 as a rectangle.
+# Special case because the algorithm draws 5x5 as a rectangle.
 def five_by_five():
     return [[0, 1, 1, 1, 0],
             [1, 1, 0, 1, 1],

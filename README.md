@@ -7,7 +7,7 @@ It is intended for use with [level_generator](https://github.com/ifIMust/level_g
 The main implementation creates a rectangle of the specified size, with walls surrounding an empty floor.
 If conditions are right, a circular room may be generated.
 
-room_generator uses Python and Flask, with a venv virtual environment.
+room_generator uses Python, Flask, and numpy with a venv virtual environment.
 
 ## Example usage
 In the room_generator project directory, activate the venv environment:
@@ -17,7 +17,7 @@ To run the service in debug mode on port 4949:
 `flask run --port 4949`
 
 To generate a room with height 12 and width 7, GET `/generate?h=12&w=7`
-The output format is a (JSON) list of lists. Each nested list represents a row.
+The output format is a JSON-style list of lists. Each nested list represents a row.
 0 is floor, 1 is wall.
 
 `h` and `w` have a minimum size of 3 and default of 3.
@@ -32,7 +32,11 @@ For instance, `http://localhost:5000/generate?h=3&w=4` yields `[[1,1,1,1],[1,0,0
 ```
 
 ## Further Work
-- Permit client to request a room type.
+- Output a slightly more informative json document:
+  - Specify room extents
+  - Specify room type
+  - May provide error info
 - Generate elliptical rooms that don't have to be circles.
 - Generate other, more interesting room shapes.
+- Permit client to request a room type.
 - Register this service with a registry service.
