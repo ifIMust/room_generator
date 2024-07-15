@@ -32,11 +32,7 @@ For instance, `http://localhost:5000/generate?h=3&w=4` yields `[[1,1,1,1],[1,0,0
 ```
 
 ## Further Work
-- Output a slightly more informative json document:
-  - Specify room extents
-  - Specify room type
-  - May provide error info
-- Generate elliptical rooms that don't have to be circles.
-- Generate other, more interesting room shapes.
 - Permit client to request a room type.
+- Generate other, more interesting room shapes.
 - Register this service with a registry service.
+- Use a logger.
