@@ -11,4 +11,5 @@ def generate_rectangle(height, width):
                 tiles[i].append(1) # Wall
             else:
                 tiles[i].append(0) # Floor
-    return tiles
+    room = {'style': 'rectangle', 'shape': [height, width], 'data': tiles}
+    return room
