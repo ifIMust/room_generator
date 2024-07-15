@@ -45,8 +45,7 @@ def generate_circle(r):
         x += 1
 
     # Close the final missing diagonal:
-    if x > 1:
-        draw_times_8(data, r, x, y + 1)
+    draw_times_8(data, r, x, y + 1)
 
     return data.tolist()
 

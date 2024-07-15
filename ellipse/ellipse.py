@@ -1,5 +1,12 @@
 import numpy as np
 
+def draw_times_4(data, xc, yc, x, y):
+    data[xc + x][yc + y] = 1
+    data[xc - x][yc + y] = 1
+    data[xc + x][yc - y] = 1
+    data[xc - x][yc - y] = 1
+
+
 # a should mean width, b is height.
 def generate_ellipse(a, b):
     assert a > 1
@@ -19,18 +26,26 @@ def generate_ellipse(a, b):
     y = b
     sigma = 2*b2 + a2*(1 - 2*b)
 
+    just_decremented_y = False
+    
     # First half in 4 quadrants
     while b2*x <= a2*y:
-        data[xc + x][yc + y] = 1
-        data[xc - x][yc + y] = 1
-        data[xc + x][yc - y] = 1
-        data[xc - x][yc - y] = 1
+        draw_times_4(data, xc, yc, x, y)
 
+        if just_decremented_y:
+            draw_times_4(data, xc, yc, x, y + 1)
+        
         if sigma >= 0:
             sigma += fa2*(1 - y)
             y -= 1
+            just_decremented_y = True
+        else:
+            just_decremented_y = False
         sigma += b2*(4*x + 6)
         x += 1
+
+    # Final point
+    draw_times_4(data, xc, yc, x, y + 1)
 
     # Second half in 4 quadrants
     fb2 = 4*b2
@@ -38,15 +53,19 @@ def generate_ellipse(a, b):
     y = 0
     sigma = 2*a2 + b2*(1 - 2*a)
 
+    just_decremented_x = False
+
     while a2*y <= b2*x:
-        data[xc + x][yc + y] = 1
-        data[xc - x][yc + y] = 1
-        data[xc + x][yc - y] = 1
-        data[xc - x][yc - y] = 1
-        
+        draw_times_4(data, xc, yc, x, y)
+
+        if just_decremented_x:
+             draw_times_4(data, xc, yc, x + 1, y)
         if sigma >= 0:
             sigma += fb2*(1 - x)
             x -= 1
+            just_decremented_x = True
+        else:
+            just_decremented_x = False
         sigma += a2*(4*y + 6)
         y += 1
     
