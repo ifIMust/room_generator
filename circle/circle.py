@@ -16,10 +16,13 @@ def draw_times_8(data, r, x, y):
 
 def generate_circle(r):
     assert r > 1
-    if r == 2:
-        return five_by_five()
-    
     dim = r * 2 + 1
+    room = {'style': 'circle', 'shape': [dim, dim]}
+    
+    if r == 2:
+        room['data'] = five_by_five()
+        return room
+
     data = np.zeros((dim, dim), dtype=np.uint8)
 
     x = 0
@@ -47,7 +50,8 @@ def generate_circle(r):
     # Close the final missing diagonal:
     draw_times_8(data, r, x, y + 1)
 
-    return data.tolist()
+    room['data'] = data.tolist()
+    return room
 
 
 # Special case because the algorithm draws 5x5 as a rectangle.
@@ -57,20 +61,3 @@ def five_by_five():
             [1, 0, 0, 0, 1],
             [1, 1, 0, 1, 1],
             [0, 1, 1, 1, 0]]
-
-# count_ortho_neighbors was written with the intention of using it for filtering
-# generated circles to fill in missing cells. It is obsolete with the addition of
-# the above "fat rasterize".
-# Assumption: pos is at least one space from any edge. It is safe to index +/-1.
-# Count wall (1) cells in the cardinal directions neighboring pos.
-def count_ortho_neighbors(data, pos):
-    n = 0
-    if data[pos[0] - 1][pos[1]] == 1:
-        n += 1
-    if data[pos[0] + 1][pos[1]] == 1:
-        n += 1
-    if data[pos[0]][pos[1] - 1] == 1:
-        n += 1
-    if data[pos[0]][pos[1] + 1] == 1:
-        n += 1
-    return n

@@ -17,12 +17,12 @@ def generate():
         abort(400)
         return
 
-    # Candidate for circle or ellipse?
+    # Check if candidate for circle or ellipse
     if height % 2 == 1 and height >= 5:
-        # Random rooms with equal dimensions are unlikely, so always do a circle.
+        # Equal dimensions: do a circle.
         if height == width:
             return circle.generate_circle(math.floor(height / 2))
         elif width % 2 == 1 and width >= 5:
             return ellipse.generate_ellipse(math.floor(height / 2), math.floor(width / 2))
 
-    return rectangle.generate_rectangle(width, height)
+    return rectangle.generate_rectangle(height, width)
