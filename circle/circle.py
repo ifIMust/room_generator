@@ -54,7 +54,7 @@ def generate_circle(r):
     return room
 
 
-# Special case because the algorithm draws 5x5 as a rectangle.
+# Special case. Otherwise the algorithm draws 5x5 as a rectangle.
 def five_by_five():
     return [[0, 1, 1, 1, 0],
             [1, 1, 0, 1, 1],

@@ -69,4 +69,4 @@ def generate_ellipse(a, b):
         sigma += a2*(4*y + 6)
         y += 1
     
-    return data.tolist()
+    return {'style': 'ellipse', 'shape': [a*2 + 1, b*2 + 1], 'data': data.tolist()}
