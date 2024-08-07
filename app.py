@@ -3,24 +3,20 @@ from circle import circle
 from ellipse import ellipse
 from rectangle import rectangle
 
+import configparser
 import math
 import random
 
-# Ugly and hopefully temporary...
-# Look for srspy nearby
-from os import path
-import sys
-sys.path.append(path.abspath('../srsr/client/srsrpy'))
+config = configparser.ConfigParser()
+config.read('config.toml')
+use_srsrpy = config.getboolean('Service Registry', 'UseSrsrpy')
 
-import srsrpy
+if use_srsrpy:
+    print("Using srsrpy service registry client.")
+    import signal
+    from srsrpy import srsrpy
 
-import signal
-
-
-app = Flask(__name__)
-random.seed()
-
-try:
+    # try:
     svc_reg = srsrpy.ServiceRegistryClient('http://localhost:3434', 'room_generator', 'http://localhost:4949')
     svc_reg.register()
 
@@ -32,10 +28,14 @@ try:
         if prev_handler:
             prev_handler(sig, frame)
     signal.signal(signal.SIGINT, handle_sigint)
-except:
-    print("Couldn't connect to registry server.")
 
+    # except:
+    #     print("Couldn't connect to registry server.")
+else:
+    print("Not using a service registry")
 
+random.seed()
+app = Flask(__name__)
 
 @app.route("/generate")
 def generate():
