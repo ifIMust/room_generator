@@ -35,15 +35,17 @@ For instance, `http://localhost:5000/generate?h=3&w=4` yields `[[1,1,1,1],[1,0,0
 
 ## Configuration
 room_generator supports registration with [srsr](https://github.com/ifIMust/srsr).
-Edit config.toml, set `UseSrsrpy = yes`, and configure the server address.
-The srsrpy client is currently only on the srsrpy test server:
+Install the srsrpy client from the PyPI test instance:
 ```
 pip install -i https://test.pypi.org/simple/ srsrpy
 pip install requests
 ```
+Edit config.toml, set `UseSrsrpy = yes`, and set `SrsrServer` to the srsr server's address.
 
 ## Further Work
+- Use a more formal flask app project structure.
+- Get the flask app address dynamically, to use for service registration.
+- Write API tests.
 - Permit client to request a room type.
 - Generate other, more interesting room shapes.
-- Register this service with a registry service.
 - Use a logger.
