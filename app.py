@@ -11,7 +11,8 @@ import random
 from os import path
 import sys
 sys.path.append(path.abspath('../srsr/client/srsrpy'))
-from srsrpy import ServiceRegistryClient
+
+import srsrpy
 
 import signal
 
@@ -20,7 +21,7 @@ app = Flask(__name__)
 random.seed()
 
 try:
-    svc_reg = ServiceRegistryClient('http://localhost:3434', 'room_generator', 'http://localhost:4949')
+    svc_reg = srsrpy.ServiceRegistryClient('http://localhost:3434', 'room_generator', 'http://localhost:4949')
     svc_reg.register()
 
     # Assume registration was successful. Deregister on Ctrl-C
