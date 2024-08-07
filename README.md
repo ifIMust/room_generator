@@ -7,12 +7,14 @@ It is intended for use with [level_generator](https://github.com/ifIMust/level_g
 The main implementation creates a rectangle of the specified size, with walls surrounding an empty floor.
 If conditions are right, a circular room may be generated.
 
-room_generator uses Python, Flask, and numpy with a venv virtual environment.
-
 ## Example usage
-In the room_generator project directory, activate the venv environment:
-`. .venv/bin/activate`
-
+Example setup with venv:
+In the room_generator project directory, create and set up the venv environment:
+```
+python3 -m venv .venv
+. .venv/bin/activate
+pip install flask numpy
+```
 To run the service in debug mode on port 4949:
 `flask run --port 4949`
 
@@ -29,6 +31,15 @@ For instance, `http://localhost:5000/generate?h=3&w=4` yields `[[1,1,1,1],[1,0,0
   [1, 0, 0, 1],
   [1, 1, 1, 1]
 ]
+```
+
+## Configuration
+room_generator supports registration with [srsr](https://github.com/ifIMust/srsr).
+Edit config.toml, set `UseSrsrpy = yes`, and configure the server address.
+The srsrpy client is currently only on the srsrpy test server:
+```
+pip install -i https://test.pypi.org/simple/ srsrpy
+pip install requests
 ```
 
 ## Further Work
