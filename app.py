@@ -16,26 +16,32 @@ if use_srsrpy:
     import signal
     from srsrpy import srsrpy
 
-    # try:
-    svc_reg = srsrpy.ServiceRegistryClient('http://localhost:3434', 'room_generator', 'http://localhost:4949')
-    svc_reg.register()
+    server_address = config.get('Service Registry', 'SrsrServer')
 
-    # Assume registration was successful. Deregister on Ctrl-C
-    prev_handler = signal.getsignal(signal.SIGINT)
-    def handle_sigint(sig, frame):
-        svc_reg.deregister()
+    try:
+        svc_reg = srsrpy.ServiceRegistryClient(server_address,
+                                               'room_generator',
+                                               'http://localhost:4949')
+        svc_reg.register()
 
-        if prev_handler:
-            prev_handler(sig, frame)
-    signal.signal(signal.SIGINT, handle_sigint)
+        # Assume registration was successful. Deregister on Ctrl-C
+        prev_handler = signal.getsignal(signal.SIGINT)
 
-    # except:
-    #     print("Couldn't connect to registry server.")
-else:
-    print("Not using a service registry")
+        def handle_sigint(sig, frame):
+            svc_reg.deregister()
+
+            if prev_handler:
+                prev_handler(sig, frame)
+        signal.signal(signal.SIGINT, handle_sigint)
+    except Exception:
+        # TODO Catching Exception is too broad. Fix srsrpy to not
+        # allow requests library exceptions to escape.
+        print("Couldn't connect to registry server.")
+
 
 random.seed()
 app = Flask(__name__)
+
 
 @app.route("/generate")
 def generate():
@@ -52,6 +58,7 @@ def generate():
         if height == width:
             return circle.generate_circle(math.floor(height / 2))
         elif width % 2 == 1 and width >= 5:
-            return ellipse.generate_ellipse(math.floor(height / 2), math.floor(width / 2))
+            return ellipse.generate_ellipse(math.floor(height / 2),
+                                            math.floor(width / 2))
 
     return rectangle.generate_rectangle(height, width)
