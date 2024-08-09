@@ -1,4 +1,5 @@
 from . import ellipse
+from tile.tile import Tile
 import numpy as np
 import pytest
 
@@ -70,3 +71,21 @@ def test_gen_ellipse_huge_data(ellipse_huge):
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     ]
     assert expected == ellipse_huge['data']
+
+
+@pytest.fixture
+def ellipse_3_4_void():
+    return ellipse.generate_ellipse(3, 4, void=True)
+
+
+def test_gen_ellipse_data(ellipse_3_4_void):
+    expected = [
+        [Tile.VOID, 1, 1, 1, 1, 1, 1, 1, Tile.VOID],
+        [1, 1, 0, 0, 0, 0, 0, 1, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 1, 0, 0, 0, 0, 0, 1, 1],
+        [Tile.VOID, 1, 1, 1, 1, 1, 1, 1, Tile.VOID]
+    ]
+    assert expected == ellipse_3_4_void['data']

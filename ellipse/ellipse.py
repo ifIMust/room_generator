@@ -1,4 +1,5 @@
 from tile.tile import Tile
+from flood.flood_four_way import flood
 import numpy as np
 
 def draw_times_4(data, xc, yc, x, y):
@@ -9,11 +10,15 @@ def draw_times_4(data, xc, yc, x, y):
 
 
 # a should mean width, b is height.
-def generate_ellipse(a, b):
+# By default, all non-walls are floor.
+# If void is True, fill with void, draw the circle, then flood fill the center with floor.
+def generate_ellipse(a, b, void=False):
     assert a > 1
     assert b > 1
     
     data = np.zeros((a*2 + 1, b*2 + 1), dtype=np.uint8)
+    if void:
+        data.fill(Tile.VOID)
 
     # Center offset
     xc = a
@@ -69,5 +74,10 @@ def generate_ellipse(a, b):
             just_decremented_x = False
         sigma += a2*(4*y + 6)
         y += 1
+
+
+    # Replace all void inside the ellipse with floor
+    if void:
+        flood(data, (a, b), Tile.VOID, Tile.FLOOR)
     
     return {'style': 'ellipse', 'shape': [a*2 + 1, b*2 + 1], 'data': data.tolist()}
