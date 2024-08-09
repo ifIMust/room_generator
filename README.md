@@ -19,18 +19,22 @@ To run the service in debug mode on port 4949:
 `flask run --port 4949`
 
 To generate a room with height 12 and width 7, GET `/generate?h=12&w=7`
-The output format is a JSON-style list of lists. Each nested list represents a row.
+The output format is a JSON document describing the room. Each nested list in `data` represents a row.
 0 is floor, 1 is wall.
 
 `h` and `w` have a minimum size of 3 and default of 3.
 
-For instance, `http://localhost:5000/generate?h=3&w=4` yields `[[1,1,1,1],[1,0,0,1],[1,1,1,1]]` or pretty-printed:
+For instance, `http://localhost:5000/generate?h=3&w=4` yields (when pretty-printed):
 ```
-[
-  [1, 1, 1, 1],
-  [1, 0, 0, 1],
-  [1, 1, 1, 1]
-]
+{
+  "data": [
+    [1, 1, 1, 1],
+    [1, 0, 0, 1],
+    [1, 1, 1, 1]
+  ],
+  "shape": [3, 4],
+  "style": "rectangle"
+}
 ```
 
 ## Configuration
@@ -44,8 +48,7 @@ Edit config.toml, set `UseSrsrpy = yes`, and set `SrsrServer` to the srsr server
 
 ## Further Work
 - Use a more formal flask app project structure.
-- Get the flask app address dynamically, to use for service registration.
+- Use gunicorn configuration to set up service registration.
 - Write API tests.
 - Permit client to request a room type.
 - Generate other, more interesting room shapes.
-- Use a logger.
