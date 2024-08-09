@@ -16,6 +16,8 @@ def draw_times_8(data, r, x, y):
     data[r - y][r - x] = Tile.WALL
 
 
+# By default, all non-walls are floor.
+# If void is True, fill with void, draw the circle, then flood fill the center with floor.
 def generate_circle(r, void=False):
     assert r > 1
     dim = r * 2 + 1
@@ -27,10 +29,7 @@ def generate_circle(r, void=False):
 
     data = np.zeros((dim, dim), dtype=np.uint8)
     if void:
-        print("Filling with void")
         data.fill(Tile.VOID)
-    else:
-        print("Not void")
 
     x = 0
     y = r
@@ -40,8 +39,9 @@ def generate_circle(r, void=False):
     while x <= y:
         draw_times_8(data, r, x, y)
 
-        # This tweak to this algorithm yields a "fatter" rasterize.
+        # This tweak to the algorithm yields a "fatter" rasterize.
         # Instead of picking the nearest next point, also draw the alternative point.
+        # This closes diagonals for fully connected walls.
         if just_decremented_y:
             draw_times_8(data, r, x, y + 1)
         
@@ -57,7 +57,7 @@ def generate_circle(r, void=False):
     # Close the final missing diagonal:
     draw_times_8(data, r, x, y + 1)
 
-    # Flood with floor
+    # Replace all void inside the circle with floor
     if void:
         flood(data, (r, r), Tile.VOID, Tile.FLOOR)
     
