@@ -2,6 +2,6 @@ from enum import IntFlag
 
 
 class Tile(IntFlag):
-    VOID = 0
-    FLOOR = 1
-    WALL = 2
+    FLOOR = 0
+    WALL = 1
+    VOID = 0x7F

@@ -50,7 +50,7 @@ class TestRectangle:
         width = 4
         height = 3
         rect = rectangle.generate_rectangle(height, width)
-        expected = [[2, 2, 2, 2], [2, 1, 1, 2], [2, 2, 2, 2]]
+        expected = [[1, 1, 1, 1], [1, 0, 0, 1], [1, 1, 1, 1]]
         assert expected == rect['data']
         assert rect['shape'][0] == height
         assert rect['shape'][1] == width
