@@ -1,4 +1,4 @@
-import rectangle as rectangle
+from . import rectangle
 import pytest
 
 square_dim = 5
