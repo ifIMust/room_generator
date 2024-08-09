@@ -1,6 +1,7 @@
 import numpy as np
 import numpy.ma as ma
 
+
 def flood(data, start_point, find_color, repl_color):
     # Generate array of booleans as "Inside" mask
     inside = ma.equal(data, find_color).data

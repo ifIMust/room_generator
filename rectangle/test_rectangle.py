@@ -1,7 +1,9 @@
 from . import rectangle
 import pytest
 
+
 square_dim = 5
+
 
 @pytest.fixture
 def square():
@@ -11,7 +13,7 @@ def square():
 class TestRectangle:
     def test_style(self, square):
         assert square['style'] == 'rectangle'
-    
+
     def test_data_height(self, square):
         assert len(square['data']) == square_dim
 
@@ -28,15 +30,15 @@ class TestRectangle:
     def test_floor(self):
         dim = 3
         rect = rectangle.generate_rectangle(dim, dim)
-        assert(rect['data'][1][1] == 0)
-        
+        assert rect['data'][1][1] == 0
+
     def test_upper_wall(self):
         dim = 3
         rect = rectangle.generate_rectangle(dim, dim)
         assert len(rect['data']) > 0
         for i in range(0, len(rect['data'][0])):
             assert rect['data'][0][i] == 1
-            
+
     def test_left_wall(self):
         dim = 3
         rect = rectangle.generate_rectangle(dim, dim)
