@@ -1,29 +1,35 @@
+from tile.tile import Tile
+from flood.flood_four_way import flood
 import numpy as np
 
 # Circle rasterizing code adapted from "3D Game Engine Design", 2nd Ed. David H Eberly
 # Each loop iteration draws the same point in symmetry to 8 sections of the circle.
 # Extra points are drawn to ensure closed orthogonal walls.
 def draw_times_8(data, r, x, y):
-    data[r + x][r + y] = 1
-    data[r + x][r - y] = 1
-    data[r - x][r + y] = 1
-    data[r - x][r - y] = 1
-    data[r + y][r + x] = 1
-    data[r + y][r - x] = 1
-    data[r - y][r + x] = 1
-    data[r - y][r - x] = 1
+    data[r + x][r + y] = Tile.WALL
+    data[r + x][r - y] = Tile.WALL
+    data[r - x][r + y] = Tile.WALL
+    data[r - x][r - y] = Tile.WALL
+    data[r + y][r + x] = Tile.WALL
+    data[r + y][r - x] = Tile.WALL
+    data[r - y][r + x] = Tile.WALL
+    data[r - y][r - x] = Tile.WALL
 
 
-def generate_circle(r):
+# By default, all non-walls are floor.
+# If void is True, fill with void, draw the circle, then flood fill the center with floor.
+def generate_circle(r, void=False):
     assert r > 1
     dim = r * 2 + 1
     room = {'style': 'circle', 'shape': [dim, dim]}
     
     if r == 2:
-        room['data'] = five_by_five()
+        room['data'] = five_by_five(void)
         return room
 
     data = np.zeros((dim, dim), dtype=np.uint8)
+    if void:
+        data.fill(Tile.VOID)
 
     x = 0
     y = r
@@ -33,8 +39,9 @@ def generate_circle(r):
     while x <= y:
         draw_times_8(data, r, x, y)
 
-        # This tweak to this algorithm yields a "fatter" rasterize.
+        # This tweak to the algorithm yields a "fatter" rasterize.
         # Instead of picking the nearest next point, also draw the alternative point.
+        # This closes diagonals for fully connected walls.
         if just_decremented_y:
             draw_times_8(data, r, x, y + 1)
         
@@ -50,14 +57,25 @@ def generate_circle(r):
     # Close the final missing diagonal:
     draw_times_8(data, r, x, y + 1)
 
+    # Replace all void inside the circle with floor
+    if void:
+        flood(data, (r, r), Tile.VOID, Tile.FLOOR)
+    
     room['data'] = data.tolist()
     return room
 
 
 # Special case. Otherwise the algorithm draws 5x5 as a rectangle.
-def five_by_five():
-    return [[0, 1, 1, 1, 0],
-            [1, 1, 0, 1, 1],
-            [1, 0, 0, 0, 1],
-            [1, 1, 0, 1, 1],
-            [0, 1, 1, 1, 0]]
+def five_by_five(void):
+    if void:
+        return [[Tile.VOID, Tile.WALL, Tile.WALL, Tile.WALL, Tile.VOID],
+            [Tile.WALL, Tile.WALL, Tile.FLOOR, Tile.WALL, Tile.WALL],
+                [Tile.WALL, Tile.FLOOR, Tile.FLOOR, Tile.FLOOR, Tile.WALL],
+                [Tile.WALL, Tile.WALL, Tile.FLOOR, Tile.WALL, Tile.WALL],
+                [Tile.VOID, Tile.WALL, Tile.WALL, Tile.WALL, Tile.VOID]]
+    else:
+        return [[Tile.FLOOR, Tile.WALL, Tile.WALL, Tile.WALL, Tile.FLOOR],
+                [Tile.WALL, Tile.WALL, Tile.FLOOR, Tile.WALL, Tile.WALL],
+                [Tile.WALL, Tile.FLOOR, Tile.FLOOR, Tile.FLOOR, Tile.WALL],
+                [Tile.WALL, Tile.WALL, Tile.FLOOR, Tile.WALL, Tile.WALL],
+                [Tile.FLOOR, Tile.WALL, Tile.WALL, Tile.WALL, Tile.FLOOR]]

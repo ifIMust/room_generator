@@ -1,4 +1,5 @@
-import circle
+from . import circle
+from tile.tile import Tile
 import numpy as np
 import pytest
 
@@ -72,4 +73,28 @@ def test_gen_circle_r5():
                 [0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0],
                 [0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0]]
     output = circle.generate_circle(5)
+    assert expected == output['data']
+
+
+def test_gen_circle_r2_void():
+    expected = [[Tile.VOID, 1, 1, 1, Tile.VOID],
+                [1, 1, 0, 1, 1],
+                [1, 0, 0, 0, 1],
+                [1, 1, 0, 1, 1],
+                [Tile.VOID, 1, 1, 1, Tile.VOID]]
+    output = circle.generate_circle(2, void=True)
+    assert expected == output['data']
+
+
+def test_gen_circle_r4_void():
+    expected = [[Tile.VOID, Tile.VOID, 1, 1, 1, 1, 1, Tile.VOID, Tile.VOID],
+                [Tile.VOID, 1, 1, 0, 0, 0, 1, 1, Tile.VOID],
+                [1, 1, 0, 0, 0, 0, 0, 1, 1],
+                [1, 0, 0, 0, 0, 0, 0, 0, 1],
+                [1, 0, 0, 0, 0, 0, 0, 0, 1],
+                [1, 0, 0, 0, 0, 0, 0, 0, 1],
+                [1, 1, 0, 0, 0, 0, 0, 1, 1],
+                [Tile.VOID, 1, 1, 0, 0, 0, 1, 1, Tile.VOID],
+                [Tile.VOID, Tile.VOID, 1, 1, 1, 1, 1, Tile.VOID, Tile.VOID]]
+    output = circle.generate_circle(4, void=True)
     assert expected == output['data']
