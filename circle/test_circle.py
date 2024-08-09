@@ -1,4 +1,4 @@
-import circle
+from . import circle
 import numpy as np
 import pytest
 
