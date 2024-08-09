@@ -1,4 +1,4 @@
-import ellipse
+from . import ellipse
 import numpy as np
 import pytest
 

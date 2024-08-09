@@ -1,10 +1,11 @@
+from tile.tile import Tile
 import numpy as np
 
 def draw_times_4(data, xc, yc, x, y):
-    data[xc + x][yc + y] = 1
-    data[xc - x][yc + y] = 1
-    data[xc + x][yc - y] = 1
-    data[xc - x][yc - y] = 1
+    data[xc + x][yc + y] = Tile.WALL
+    data[xc - x][yc + y] = Tile.WALL
+    data[xc + x][yc - y] = Tile.WALL
+    data[xc - x][yc - y] = Tile.WALL
 
 
 # a should mean width, b is height.
