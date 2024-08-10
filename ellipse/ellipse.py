@@ -2,6 +2,7 @@ from tile.tile import Tile
 from flood.flood_four_way import flood
 import numpy as np
 
+
 def draw_times_4(data, xc, yc, x, y):
     data[xc + x][yc + y] = Tile.WALL
     data[xc - x][yc + y] = Tile.WALL
@@ -11,11 +12,12 @@ def draw_times_4(data, xc, yc, x, y):
 
 # a should mean width, b is height.
 # By default, all non-walls are floor.
-# If void is True, fill with void, draw the circle, then flood fill the center with floor.
+# If void is True, fill with void, draw the circle,
+# then flood fill the center with floor.
 def generate_ellipse(a, b, void=False):
     assert a > 1
     assert b > 1
-    
+
     data = np.zeros((a*2 + 1, b*2 + 1), dtype=np.uint8)
     if void:
         data.fill(Tile.VOID)
@@ -23,7 +25,7 @@ def generate_ellipse(a, b, void=False):
     # Center offset
     xc = a
     yc = b
-    
+
     a2 = a*a
     b2 = b*b
     fa2 = 4*a2
@@ -33,14 +35,14 @@ def generate_ellipse(a, b, void=False):
     sigma = 2*b2 + a2*(1 - 2*b)
 
     just_decremented_y = False
-    
+
     # First half in 4 quadrants
     while b2*x <= a2*y:
         draw_times_4(data, xc, yc, x, y)
 
         if just_decremented_y:
             draw_times_4(data, xc, yc, x, y + 1)
-        
+
         if sigma >= 0:
             sigma += fa2*(1 - y)
             y -= 1
@@ -65,7 +67,7 @@ def generate_ellipse(a, b, void=False):
         draw_times_4(data, xc, yc, x, y)
 
         if just_decremented_x:
-             draw_times_4(data, xc, yc, x + 1, y)
+            draw_times_4(data, xc, yc, x + 1, y)
         if sigma >= 0:
             sigma += fb2*(1 - x)
             x -= 1
@@ -75,9 +77,9 @@ def generate_ellipse(a, b, void=False):
         sigma += a2*(4*y + 6)
         y += 1
 
-
     # Replace all void inside the ellipse with floor
     if void:
         flood(data, (a, b), Tile.VOID, Tile.FLOOR)
-    
-    return {'style': 'ellipse', 'shape': [a*2 + 1, b*2 + 1], 'data': data.tolist()}
+
+    return {'style': 'ellipse', 'shape': [a*2 + 1, b*2 + 1],
+            'data': data.tolist()}
