@@ -17,26 +17,20 @@ if use_srsrpy:
     from srsrpy import srsrpy
 
     server_address = config.get('Service Registry', 'SrsrServer')
+    svc_reg = srsrpy.ServiceRegistryClient(server_address,
+                                           'room_generator',
+                                           port='4949')
+    svc_reg.register()
 
-    try:
-        svc_reg = srsrpy.ServiceRegistryClient(server_address,
-                                               'room_generator',
-                                               'http://localhost:4949')
-        svc_reg.register()
+    # Assume registration was successful. Deregister on Ctrl-C
+    prev_handler = signal.getsignal(signal.SIGINT)
 
-        # Assume registration was successful. Deregister on Ctrl-C
-        prev_handler = signal.getsignal(signal.SIGINT)
+    def handle_sigint(sig, frame):
+        svc_reg.deregister()
 
-        def handle_sigint(sig, frame):
-            svc_reg.deregister()
-
-            if prev_handler:
-                prev_handler(sig, frame)
-        signal.signal(signal.SIGINT, handle_sigint)
-    except Exception:
-        # TODO Catching Exception is too broad. Fix srsrpy to not
-        # allow requests library exceptions to escape.
-        print("Couldn't connect to registry server.")
+        if prev_handler:
+            prev_handler(sig, frame)
+    signal.signal(signal.SIGINT, handle_sigint)
 
 
 random.seed()

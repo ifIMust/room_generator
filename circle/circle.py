@@ -2,8 +2,12 @@ from tile.tile import Tile
 from flood.flood_four_way import flood
 import numpy as np
 
-# Circle rasterizing code adapted from "3D Game Engine Design", 2nd Ed. David H Eberly
-# Each loop iteration draws the same point in symmetry to 8 sections of the circle.
+
+# Circle rasterizing code adapted from "3D Game Engine Design",
+# 2nd Ed. David H Eberly.
+#
+# Each loop iteration draws the same point in symmetry to 8 sections
+# of the circle.
 # Extra points are drawn to ensure closed orthogonal walls.
 def draw_times_8(data, r, x, y):
     data[r + x][r + y] = Tile.WALL
@@ -17,12 +21,13 @@ def draw_times_8(data, r, x, y):
 
 
 # By default, all non-walls are floor.
-# If void is True, fill with void, draw the circle, then flood fill the center with floor.
+# If void is True, fill with void, draw the circle, then flood fill
+# the center with floor tiles.
 def generate_circle(r, void=False):
     assert r > 1
     dim = r * 2 + 1
     room = {'style': 'circle', 'shape': [dim, dim]}
-    
+
     if r == 2:
         room['data'] = five_by_five(void)
         return room
@@ -40,11 +45,12 @@ def generate_circle(r, void=False):
         draw_times_8(data, r, x, y)
 
         # This tweak to the algorithm yields a "fatter" rasterize.
-        # Instead of picking the nearest next point, also draw the alternative point.
+        # Instead of picking the nearest next point, also draw the
+        # alternative point.
         # This closes diagonals for fully connected walls.
         if just_decremented_y:
             draw_times_8(data, r, x, y + 1)
-        
+
         if dec >= 0:
             y -= 1
             dec += -4*y + 4
@@ -60,7 +66,7 @@ def generate_circle(r, void=False):
     # Replace all void inside the circle with floor
     if void:
         flood(data, (r, r), Tile.VOID, Tile.FLOOR)
-    
+
     room['data'] = data.tolist()
     return room
 
@@ -69,7 +75,7 @@ def generate_circle(r, void=False):
 def five_by_five(void):
     if void:
         return [[Tile.VOID, Tile.WALL, Tile.WALL, Tile.WALL, Tile.VOID],
-            [Tile.WALL, Tile.WALL, Tile.FLOOR, Tile.WALL, Tile.WALL],
+                [Tile.WALL, Tile.WALL, Tile.FLOOR, Tile.WALL, Tile.WALL],
                 [Tile.WALL, Tile.FLOOR, Tile.FLOOR, Tile.FLOOR, Tile.WALL],
                 [Tile.WALL, Tile.WALL, Tile.FLOOR, Tile.WALL, Tile.WALL],
                 [Tile.VOID, Tile.WALL, Tile.WALL, Tile.WALL, Tile.VOID]]
