@@ -1,10 +1,7 @@
 from room_generator import flood_four_way
 import numpy as np
 import pytest
-from os import path
-import sys
-sys.path.append(path.dirname(path.realpath(__file__)) + "/..")
-from rectangle import rectangle # noqa: 402
+from rectangle import rectangle
 
 
 @pytest.fixture
