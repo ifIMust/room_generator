@@ -1,6 +1,9 @@
-from room_generator import rectangle
-from room_generator.tile import Tile
 import pytest
+from os import path
+import sys
+sys.path.append(path.dirname(path.realpath(__file__)) + "/..")
+from room_generator import rectangle  # noqa: E402
+from room_generator.tile import Tile  # noqa: E402
 
 
 square_dim = 5
