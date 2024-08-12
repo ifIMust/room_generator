@@ -1,5 +1,5 @@
 from tile.tile import Tile
-from flood.flood_four_way import flood
+from . import flood_four_way
 import numpy as np
 
 
@@ -79,7 +79,7 @@ def generate_ellipse(a, b, void=False):
 
     # Replace all void inside the ellipse with floor
     if void:
-        flood(data, (a, b), Tile.VOID, Tile.FLOOR)
+        flood_four_way.flood(data, (a, b), Tile.VOID, Tile.FLOOR)
 
     return {'style': 'ellipse', 'shape': [a*2 + 1, b*2 + 1],
             'data': data.tolist()}

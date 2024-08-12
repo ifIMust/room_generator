@@ -1,4 +1,4 @@
-from . import circle
+from room_generator import circle
 from tile.tile import Tile
 import pytest
 

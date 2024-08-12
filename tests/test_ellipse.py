@@ -1,4 +1,4 @@
-from . import ellipse
+from room_generator import ellipse
 from tile.tile import Tile
 import pytest
 

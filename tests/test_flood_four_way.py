@@ -1,4 +1,4 @@
-from . import flood_four_way
+from room_generator import flood_four_way
 import numpy as np
 import pytest
 from os import path
