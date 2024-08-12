@@ -24,6 +24,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest
     - name: Lint with flake8
-      run: flake8 circle ellipse flood reectangle room_generator tile
+      run: flake8 circle ellipse flood rectangle tile
     - name: Test with pytest
       run: pytest
