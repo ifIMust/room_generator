@@ -1,7 +1,8 @@
 from room_generator import flood_four_way
+from room_generator import rectangle
 import numpy as np
 import pytest
-from rectangle import rectangle
+
 
 
 @pytest.fixture

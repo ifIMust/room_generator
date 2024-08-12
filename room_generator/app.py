@@ -1,7 +1,7 @@
 from flask import Flask, abort, request
 from . import circle
 from . import ellipse
-from rectangle import rectangle
+from . import rectangle
 import configparser
 import math
 import random

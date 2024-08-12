@@ -1,4 +1,4 @@
-from . import rectangle
+from room_generator import rectangle
 from tile.tile import Tile
 import pytest
 
