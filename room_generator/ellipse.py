@@ -1,4 +1,4 @@
-from tile.tile import Tile
+from .tile import Tile
 from . import flood_four_way
 import numpy as np
 

@@ -4,7 +4,6 @@ import numpy as np
 import pytest
 
 
-
 @pytest.fixture
 def rect_three():
     return rectangle.generate_rectangle(3, 3)

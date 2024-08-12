@@ -1,5 +1,5 @@
 from room_generator import circle
-from tile.tile import Tile
+from room_generator.tile import Tile
 import pytest
 
 
