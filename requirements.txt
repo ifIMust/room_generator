@@ -1,6 +1,5 @@
 flake8 == 7.1.1
 flask == 3.0.3
-gunicorn == 22.0.0
 numpy == 2.0.1
 pytest == 8.3.2
 srsrpy == 0.2.2

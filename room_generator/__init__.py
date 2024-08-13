@@ -6,8 +6,6 @@ import configparser
 import math
 
 
-# This style of factory function is for the flask debug server
-# flask --app room_generator run
 def create_app():
     init_service_registry()
 

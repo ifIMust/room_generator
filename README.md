@@ -15,9 +15,19 @@ python3 -m venv .venv
 pip install -r requirements.txt
 ```
 
-Run the debug server on port 4949:
+Using the debug server:
 ```
-flask run --port 4949
+flask --app room_generator run --port 4949
+```
+
+Using waitress:
+```
+waitress-serve --host 127.0.0.1 --port 4949 --call room_generator:create_app
+```
+
+Using gunicorn (not recommended, interferes with shutdown signal):
+```
+gunicorn room_'generator:create_app()'
 ```
 
 To generate a room with height 12 and width 7, GET `/generate?h=12&w=7`
@@ -46,8 +56,6 @@ If configured, it will self-register, using the [srsrpy](https://github.com/ifIM
 Edit config.toml, set `UseSrsrpy = yes`, and set `SrsrServer` to the srsr server's address.
 
 ## Further Work
-- Restructure the project to work with gunicorn.
-- Use gunicorn configuration to standardize port binding.
 - Add API tests.
 - Permit client to request a room type.
 - Generate other, more interesting room shapes.
