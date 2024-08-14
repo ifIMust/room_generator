@@ -1,3 +1,4 @@
+service: room
 runtime: python312
 env: standard
 entrypoint: gunicorn -b :$PORT "room_generator:create_app()"

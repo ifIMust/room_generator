@@ -1,16 +1,16 @@
 # room_generator
 ## Description
-room_generator is a service that generates small 2D "rooms" in json format.
+room_generator is a service that generates 2D "rooms" in JSON format.
 This is useful for e.g. procedural roguelike/dungeon games if the rooms are aggregated into a larger level.
 It is intended for use with [level_generator](https://github.com/ifIMust/level_generator) (not yet released).
 
 Depending on request criteria, it may create a rectangle, circle, or ellipse shape.
 Walls have closed diagonals.
 
-room_generator runs in Google App Engine. You can deploy it to your own application or [try it here](https://trogue.wm.r.appspot.com/).
+room_generator runs in Google App Engine. You can deploy it to your own application or [try it here](https://room-dot-trogue.wm.r.appspot.com/).
 
 ## Usage
-To generate a room with height 11 and width 7, GET `/?h=11&w=7`. [Try it](https://trogue.wm.r.appspot.com/?h=11&w=7).
+To generate a room with height 11 and width 7, GET `/?h=11&w=7`. [Try it](https://room-dot-trogue.wm.r.appspot.com/?h=11&w=7).
 
 `h` and `w` have a minimum size of 3 and default of 3.
 
