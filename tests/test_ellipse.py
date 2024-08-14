@@ -1,9 +1,6 @@
+from room_generator import ellipse
+from room_generator.tile import Tile
 import pytest
-from os import path
-import sys
-sys.path.append(path.dirname(path.realpath(__file__)) + "/..")
-from room_generator import ellipse  # noqa: E402
-from room_generator.tile import Tile  # noqa: E402
 
 
 def test_gen_ellipse_min_a():

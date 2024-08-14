@@ -1,9 +1,6 @@
+from room_generator import circle
+from room_generator.tile import Tile
 import pytest
-from os import path
-import sys
-sys.path.append(path.dirname(path.realpath(__file__)) + "/..")
-from room_generator import circle  # noqa: E402
-from room_generator.tile import Tile  # noqa: E402
 
 
 def test_gen_circle_r1_too_small():
