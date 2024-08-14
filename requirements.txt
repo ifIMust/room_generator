@@ -1,6 +1,24 @@
-flake8 == 7.1.1
-flask == 3.0.3
-gunicorn == 22.0.0
-numpy == 2.0.1
-pytest == 8.3.2
-srsrpy == 0.2.2
+blinker==1.8.2
+certifi==2024.7.4
+charset-normalizer==3.3.2
+click==8.1.7
+flake8==7.1.1
+Flask==3.0.3
+gunicorn==22.0.0
+idna==3.7
+iniconfig==2.0.0
+itsdangerous==2.2.0
+Jinja2==3.1.4
+MarkupSafe==2.1.5
+mccabe==0.7.0
+numpy==2.0.1
+packaging==24.1
+pluggy==1.5.0
+pycodestyle==2.12.1
+pyflakes==3.2.0
+pytest==8.3.2
+requests==2.32.3
+srsrpy==0.2.2
+urllib3==2.2.2
+waitress==3.0.0
+Werkzeug==3.0.3

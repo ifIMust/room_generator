@@ -1,4 +1,4 @@
-from tile.tile import Tile
+from .tile import Tile
 
 
 # Wall tiles will fill the border. Floor tiles fill the remainder.

@@ -7,26 +7,18 @@ It is intended for use with [level_generator](https://github.com/ifIMust/level_g
 Depending on request criteria, it may create a rectangle, circle, or ellipse shape.
 Walls have closed diagonals.
 
-## Example usage
-In the room_generator project directory, create and set up the venv environment:
-```
-python3 -m venv .venv
-. .venv/bin/activate
-pip install -r requirements.txt
-```
+room_generator runs in Google App Engine. You can deploy it to your own application or [try it here](https://trogue.wm.r.appspot.com/).
 
-Run the debug server on port 4949:
-```
-flask run --port 4949
-```
-
-To generate a room with height 12 and width 7, GET `/generate?h=12&w=7`
-The output format is a JSON document describing the room. Each nested list in `data` represents a row.
-0 is floor, 1 is wall.
+## Usage
+To generate a room with height 11 and width 7, GET `/?h=11&w=7`. [Try it](https://trogue.wm.r.appspot.com/?h=11&w=7).
 
 `h` and `w` have a minimum size of 3 and default of 3.
 
-For instance, `http://localhost:5000/generate?h=3&w=4` yields (when pretty-printed):
+The output format is a JSON document describing the room. Each nested list in `data` represents a row.
+0 is floor, 1 is wall.
+
+### Example
+If a local server is running on port 4949, `http://localhost:4949/?h=3&w=4` yields (when pretty-printed):
 ```
 {
   "data": [
@@ -39,15 +31,31 @@ For instance, `http://localhost:5000/generate?h=3&w=4` yields (when pretty-print
 }
 ```
 
-## Configuration
-room_generator has support for the service registry [srsr](https://github.com/ifIMust/srsr).
-If configured, it will self-register, using the [srsrpy](https://github.com/ifIMust/srsrpy) client.
+## Running a local instance
+In the room_generator project directory, create and set up the venv environment:
+```
+python3 -m venv .venv
+. .venv/bin/activate
+pip install -r requirements.txt
+```
 
-Edit config.toml, set `UseSrsrpy = yes`, and set `SrsrServer` to the srsr server's address.
+Using gunicorn:
+```
+gunicorn 'room_generator:create_app()'
+```
+
+Using the debug server:
+```
+flask --app room_generator run --port 4949
+```
+
+Using waitress:
+```
+pip install waitress
+waitress-serve --host 127.0.0.1 --port 4949 --call room_generator:create_app
+```
 
 ## Further Work
-- Restructure the project to work with gunicorn.
-- Use gunicorn configuration to standardize port binding.
 - Add API tests.
 - Permit client to request a room type.
 - Generate other, more interesting room shapes.

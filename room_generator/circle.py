@@ -1,5 +1,5 @@
-from tile.tile import Tile
-from flood.flood_four_way import flood
+from .tile import Tile
+from . import flood_four_way
 import numpy as np
 
 
@@ -65,7 +65,7 @@ def generate_circle(r, void=False):
 
     # Replace all void inside the circle with floor
     if void:
-        flood(data, (r, r), Tile.VOID, Tile.FLOOR)
+        flood_four_way.flood(data, (r, r), Tile.VOID, Tile.FLOOR)
 
     room['data'] = data.tolist()
     return room

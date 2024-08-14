@@ -1,5 +1,5 @@
-from . import rectangle
-from tile.tile import Tile
+from room_generator import rectangle
+from room_generator.tile import Tile
 import pytest
 
 
