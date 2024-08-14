@@ -7,9 +7,8 @@ import math
 
 def create_app():
     app = Flask(__name__, instance_relative_config=True)
-    # app.config.from_mapping(...)
 
-    @app.route("/generate")
+    @app.route("/")
     def generate():
         height = request.args.get('h', default=3, type=int)
         width = request.args.get('w', default=3, type=int)
