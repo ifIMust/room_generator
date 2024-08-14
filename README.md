@@ -25,9 +25,9 @@ Using waitress:
 waitress-serve --host 127.0.0.1 --port 4949 --call room_generator:create_app
 ```
 
-Using gunicorn (not recommended, interferes with shutdown signal):
+Using gunicorn:
 ```
-gunicorn room_'generator:create_app()'
+gunicorn 'room_generator:create_app()'
 ```
 
 To generate a room with height 12 and width 7, GET `/generate?h=12&w=7`
@@ -48,12 +48,6 @@ For instance, `http://localhost:5000/generate?h=3&w=4` yields (when pretty-print
   "style": "rectangle"
 }
 ```
-
-## Configuration
-room_generator has support for the service registry [srsr](https://github.com/ifIMust/srsr).
-If configured, it will self-register, using the [srsrpy](https://github.com/ifIMust/srsrpy) client.
-
-Edit config.toml, set `UseSrsrpy = yes`, and set `SrsrServer` to the srsr server's address.
 
 ## Further Work
 - Add API tests.
